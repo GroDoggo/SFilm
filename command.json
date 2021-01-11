@@ -1,0 +1,19 @@
+{
+    "name": "sfilm",
+    "description": "Commande principale de sfilm",
+    "options": [
+        {
+            "name": "add",
+            "description": "Faire une proposition de film",
+            "type": 1,
+            "options": [
+                {
+                    "name": "name",
+                    "description": "Nom du film",
+                    "type": 3,
+                    "required": true
+                }
+            ]
+        }
+    ]
+}
