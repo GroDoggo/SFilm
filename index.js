@@ -1,5 +1,5 @@
 const fs = require("fs");
-const sfilm = require("./dependencies/sfilm.js");
+const sfilm = require("./dependencies/sfilm/sfilm.js");
 
 var token = fs.readFileSync('token.txt', 'utf8');
 
