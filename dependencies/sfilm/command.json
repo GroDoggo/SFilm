@@ -1,17 +1,164 @@
 {
     "name": "sfilm",
-    "description": "Commande principale de sfilm",
+    "description": "Commandes de sfilm",
     "options": [
         {
-            "name": "add",
-            "description": "Faire une proposition de film",
-            "type": 1,
+            "name": "movie",
+            "description": "Commandes accesibles a tous",
+            "type": 2,
             "options": [
                 {
-                    "name": "name",
-                    "description": "Nom du film",
-                    "type": 3,
-                    "required": true
+                    "name": "add",
+                    "description": "Crée d'une proposition de film",
+                    "type": 1,
+                    "options": [
+                        {
+                            "name": "name",
+                            "description": "Le nom du film",
+                            "type": 3,
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "name": "subscribe",
+                    "description": "Notifie lors de la diffusion",
+                    "type": 1,
+                    "options": [
+                        {
+                            "name": "name",
+                            "description": "Le nom du film",
+                            "type": 3,
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "name": "defuse",
+                    "description": "Notifie les admins que l'on peut difuser le film",
+                    "type": 1,
+                    "options": [
+                        {
+                            "name": "name",
+                            "description": "Le nom du film",
+                            "type": 3,
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "name": "upvote",
+                    "description": "Rajoute 1 point a une proposition de film",
+                    "type": 1,
+                    "options": [
+                        {
+                            "name": "name",
+                            "description": "Le nom du film",
+                            "type": 3,
+                            "required": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "admin",
+            "description": "Commandes accesibles aux admins",
+            "type": 2,
+            "options": [
+                {
+                    "name": "add",
+                    "description": "Ajoute un film dans le calendrier",
+                    "type": 1,
+                    "options": [
+                        {
+                            "name": "name",
+                            "description": "Le nom du film",
+                            "type": 3,
+                            "required": true
+                        },
+                        {
+                            "name": "day",
+                            "description": "Le jour de la diffusion",
+                            "type": 4,
+                            "required": true
+                        },
+                        {
+                            "name": "mounth",
+                            "description": "Le mois de la diffusion",
+                            "type": 4,
+                            "required": true
+                        },
+                        {
+                            "name": "diffuser",
+                            "description": "Personne chargé de la diffusion du film",
+                            "type": 6,
+                            "required": false
+                        }
+                    ]
+                },
+                {
+                    "name": "remove",
+                    "description": "Retire un film du calendrier",
+                    "type": 1,
+                    "options": [
+                        {
+                            "name": "name",
+                            "description": "Le nom du film",
+                            "type": 3,
+                            "required": true
+                        },
+                        {
+                            "name": "reason",
+                            "description": "Raison de la suppression",
+                            "type": 3,
+                            "required": false
+                        }
+                    ]
+                },
+                {
+                    "name": "defuse",
+                    "description": "Defini un difuseur pour ce film",
+                    "type": 1,
+                    "options": [
+                        {
+                            "name": "name",
+                            "description": "Le nom du film",
+                            "type": 3,
+                            "required": true
+                        },
+                        {
+                            "name": "diffuser",
+                            "description": "Personne chargé de la diffusion du film",
+                            "type": 6,
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "name": "edit",
+                    "description": "Change la date d'un film du calendrier",
+                    "type": 1,
+                    "options": [
+                        {
+                            "name": "name",
+                            "description": "Le nom du film",
+                            "type": 3,
+                            "required": true
+                        },
+                        {
+                            "name": "day",
+                            "description": "Le jour de la diffusion",
+                            "type": 4,
+                            "required": true
+                        },
+                        {
+                            "name": "mounth",
+                            "description": "Le mois de la diffusion",
+                            "type": 4,
+                            "required": true
+                        }
+                    ]
                 }
             ]
         }
