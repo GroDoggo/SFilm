@@ -1,2 +1,4 @@
 token.txt
 .vscode/
+node_modules/
+credentials

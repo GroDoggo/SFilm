@@ -34,7 +34,7 @@
                     ]
                 },
                 {
-                    "name": "defuse",
+                    "name": "broadcast",
                     "description": "Notifie les admins que l'on peut difuser le film",
                     "type": 1,
                     "options": [
@@ -90,7 +90,7 @@
                             "required": true
                         },
                         {
-                            "name": "diffuser",
+                            "name": "broadcaster",
                             "description": "Personne chargé de la diffusion du film",
                             "type": 6,
                             "required": false
@@ -117,7 +117,7 @@
                     ]
                 },
                 {
-                    "name": "defuse",
+                    "name": "broadcast",
                     "description": "Defini un difuseur pour ce film",
                     "type": 1,
                     "options": [
@@ -128,7 +128,7 @@
                             "required": true
                         },
                         {
-                            "name": "diffuser",
+                            "name": "broadcaster",
                             "description": "Personne chargé de la diffusion du film",
                             "type": 6,
                             "required": true
