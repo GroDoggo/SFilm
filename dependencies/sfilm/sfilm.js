@@ -236,12 +236,22 @@ function addSubscribe(movieName, user) {
     if (find) {
         client.users.fetch(user.id)
             .then(user => {
-                user.send("Tu es bien enregistré le film voici ton ticket")
+                const msg = {
+                    "title": "Voici ton ticket pour " + movieName,
+                    "description": "Tu recevra une notification le soir de la diffusion",
+                    "color": 14092265
+                  }
+                user.send({ embed: msg })
             })
     } else {
         client.users.fetch(user.id)
             .then(user => {
-                user.send("Je ne trouve pas le film en question\nVérifie qu'il est bien dans le calendrier et que tu n'es pas déja abonné au film")
+                const msg = {
+                    "title": "Une erreur est survenue",
+                    "description": "Je n'arrive pas a te t'envoyer de ticket. Verifie que tu n'en possède pas déja un\nSi tu es passé par une commande et non par les émojis vérifie que le film existe bien",
+                    "color": 13959168
+                }
+                user.send({ embed: msg })
             })
     }
 }
