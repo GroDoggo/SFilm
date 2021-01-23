@@ -79,6 +79,16 @@ client.on('messageReactionAdd', (messageReaction, user) => {
         }
     }
 
+    if (reaction.name === '🔔' && !user.bot) {
+        var find = undefined;
+        for (i = 0; i < listMovie.length; i++) {
+            if (listMovie[i].idMessage === message.id) find = i;
+        }
+        if (find != undefined) {
+            addSubscribe(listMovie[find].name, user)
+        }
+    }
+
 })
 
 function addMovieAdmin(movie) {
