@@ -1,0 +1,28 @@
+{
+    "Movie": {
+        "idMessage": {
+            "name": "nom du film",
+            "day": 0,
+            "mounth": 0,
+            "broadcaster": "broadcaster id",
+            "subscriber": [
+                "user1 id",
+                "user2 id"
+            ]
+        },
+        "802610832705191947": {
+            "name": "Titanic",
+            "day": 5,
+            "mounth": 6,
+            "subscriber": [
+                "210874345591930880"
+            ]
+        },
+        "802610978751250433": {
+            "name": "Test",
+            "day": 5,
+            "mounth": 8,
+            "subscriber": []
+        }
+    }
+}

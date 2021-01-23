@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const fs = require("fs");
 const Film = require('./movie');
 const utils = require('../utils.js');
 const movieArt = require('movie-art')
@@ -16,6 +17,7 @@ var j = Calendar.scheduleJob({ hour: 21, minute: 0 }, function () {
 
 client.on('ready', () => {
     console.log(`[SFilm] : Logged in as ${client.user.tag}!`);
+
 });
 
 client.on('message', msg => {
@@ -62,7 +64,7 @@ client.on('messageReactionAdd', (messageReaction, user) => {
             if (listRequest[i].idMessage === message.id) find = i;
         }
         if (find != undefined) {
-            if(!addUpvote(listRequest[find].name, user)) messageReaction.users.remove(user)
+            if (!addUpvote(listRequest[find].name, user)) messageReaction.users.remove(user)
         }
     }
 
@@ -121,12 +123,14 @@ function addMovieAdmin(movie) {
                             message.react('🔔')
                             listMovie.push(movie);
                             console.log("[SFilm] : Un nouveau film a été ajouté : " + movie);
+                            reloadData()
                         })
                         .catch(console.error))
                     .catch(console.error);
 
             }
         })
+        
 }
 
 function addRequest(interaction) {
@@ -310,6 +314,37 @@ function notification(movie) {
 const login = (token) => {
     client.login(token);
 };
+
+function reloadData() {
+
+    console.log("[SFilm] : Reloding the Data...")
+
+    var movieData = {
+        "Movie": {}
+    }
+
+    for (i = 0; i < listMovie.length; i++) {
+        if (listMovie[i].idMessage != undefined)
+            movieData["Movie"][listMovie[i].idMessage] = {
+                "name": listMovie[i].name,
+                "day": listMovie[i].day,
+                "mounth": listMovie[i].mounth,
+                "broadcaster": listMovie[i].broadcaster,
+                "subscriber": listMovie[i].subscriber,
+            }
+        else console.log("[SFilm] Ce film contient une erreur, il ne sera pas sauvegardé" + listMovie[i])
+    }
+
+    var json = JSON.stringify(movieData); //Prepare the DATA for saving
+
+    fs.writeFile("./dependencies/sfilm/movieData.json", json, 'utf8', function callback(err) {
+        if (err) {
+            console.log("[SFilm] : Erreur lors de la sauvegarde\n" + err);
+        } else {
+            console.log("[Sfilm] : Data written successfuly");
+        }
+    });
+}
 
 
 exports.login = login;
