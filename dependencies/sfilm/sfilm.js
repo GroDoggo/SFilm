@@ -136,7 +136,7 @@ function addMovieAdmin(movie) {
 
             }
         })
-        
+
 }
 
 function addRequest(interaction) {
@@ -203,12 +203,22 @@ function addUpvote(movieName, user) {
     if (find) {
         client.users.fetch(user.id)
             .then(user => {
-                user.send("Tu as bien donnée ton upvote pour ce film")
+                const msg = {
+                    "title": "Merci pour ton upvote",
+                    "description": "Tu as bien partagé ton avis sur ce film. Avec d'autre personne il pourrait bientôt se retrouver en salle",
+                    "color": 388101
+                  }
+                user.send({ embed: msg })
             })
     } else {
         client.users.fetch(user.id)
             .then(user => {
-                user.send("Je ne trouve pas le film en question\nVérifie qu'il est bien demandé et que tu n'es pas déja donner ton upvote au film")
+                const msg = {
+                    "title": "Une erreur est survenue",
+                    "description": "Ton upvote n'est pas passé. Vérifie que tu n'a pas déja upvote ce Film\nSi tu es passé par une commande et non par les émojis vérifie que le film existe bien",
+                    "color": 13959168
+                }
+                user.send({ embed: msg })
             })
     }
     return find
@@ -247,12 +257,12 @@ function addBroadcast(movieName, user) {
     if (find) {
         client.users.fetch(user.id)
             .then(user => {
-                user.send("Tu es bien désigné comme étant le projectioniste, félicitation")
+                user.send("Cette commande ne fait rien pour le moment")
             })
     } else {
         client.users.fetch(user.id)
             .then(user => {
-                user.send("Il semblerait qu'une erreur ce soir produite\nVerifie que le film est bien dans le calendrier et que personne ne s'est déja proposé pour le diffuser")
+                user.send("Cette commande ne fait rien pour le moment")
             })
     }
 }
