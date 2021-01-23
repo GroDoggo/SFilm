@@ -17,7 +17,13 @@ var j = Calendar.scheduleJob({ hour: 21, minute: 0 }, function () {
 
 client.on('ready', () => {
     console.log(`[SFilm] : Logged in as ${client.user.tag}!`);
-
+    var data = JSON.parse(fs.readFileSync("./dependencies/sfilm/movieData.json"));
+    for (movie in data["Movie"]) {
+        var movieData = new Film.Movie(data["Movie"][movie]["name"], data["Movie"][movie]["day"], data["Movie"][movie]['mounth'])
+        movieData.subscriber = data["Movie"][movie]["subscriber"]
+        movieData.idMessage = movie
+        listMovie.push(movieData)
+    }
 });
 
 client.on('message', msg => {
@@ -210,7 +216,8 @@ function addUpvote(movieName, user) {
 
 function addSubscribe(movieName, user) {
     var find = false;
-    for (i = 0; i < listMovie.length; i++) {
+    console.log(listMovie)
+    for (i = 0; i < listMovie.length && !find; i++) {
         if (listMovie[i].name === movieName && !utils.contains(listMovie[i].subscriber, user.id)) {
             listMovie[i].subscriber.push(user.id)
             find = true
