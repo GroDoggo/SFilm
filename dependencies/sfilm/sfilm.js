@@ -244,6 +244,7 @@ function addUpvote(movieName, user) {
                     "color": 388101
                 }
                 user.send({ embed: msg })
+                console.log("[SFilm] : " + user.username + " a upvote " + movieName)
             })
     } else {
         client.users.fetch(user.id)
@@ -261,7 +262,6 @@ function addUpvote(movieName, user) {
 
 function addSubscribe(movieName, user) {
     var find = false;
-    console.log(listMovie)
     for (i = 0; i < listMovie.length && !find; i++) {
         if (listMovie[i].name === movieName && !utils.contains(listMovie[i].subscriber, user.id)) {
             listMovie[i].subscriber.push(user.id)
@@ -277,6 +277,7 @@ function addSubscribe(movieName, user) {
                     "color": 14092265
                 }
                 user.send({ embed: msg })
+                console.log("[SFilm] : " + user.username + " est abonné a " + movieName)
             })
     } else {
         client.users.fetch(user.id)
@@ -314,6 +315,7 @@ function addBroadcast(movieName, user) {
 
 function removeMovieAdmin(movie) {
     listMovie = utils.supprimeMovie(listMovie, movie.name);
+    console.log("[SFilm] : " + movie.name + " a été supprimé") 
 }
 
 function addBroadcastAdmin(interaction) {
