@@ -59,7 +59,7 @@ client.on('message', msg => {
                 }
             ]
         }
-        client.users.fetch(msg.author)
+        client.users.fetch(msg.author.id)
             .then(user => {
                 user.send({ embed: message })
             })
