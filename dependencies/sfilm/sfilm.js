@@ -30,6 +30,40 @@ client.on('message', msg => {
     if (msg.content === "!update") {
         checkMovie()
     }
+
+    if (msg.content === "!help") {
+        const message = {
+            "title": "Aide SFilm",
+            "description": "Comment utiliser le bot?",
+            "color": null,
+            "fields": [
+                {
+                    "name": "Comment proposer un film?",
+                    "value": "Dans le chat de n'importe quel channel, ecrit simplement la commande /sfilm\nSelectionne ensuite parmis les propositions de Discord /sfilm movie add\nEcrit pour finir le nom de ton film (en anglais) pour créer ta proposition"
+                },
+                {
+                    "name": "Comment upvote une proposition de film?",
+                    "value": "Quand une proposition est crée, un message apparait dans le salon #sfilm-calendrier\nSi tu souhaite toi aussi voir ce film tu peux cliquer sur le petit emoji 👍\nAu bout de 5 upvote le film arrive en salle"
+                },
+                {
+                    "name": "Comment supprimer une proposition de film?",
+                    "value": "Tu t'es trompé de film? Clique simplement sur l'emoji 🚫\nCette action est accessible uniquement si tu es l'auteur de la proposition"
+                },
+                {
+                    "name": "Comment être notifie de la diffusion du film?",
+                    "value": "Lorsqu'un film arrive en salle, un nouveau post est crée dans le channel #sfilm-calendrier\nIl est alors possible d’être notifie le soir de la diffusion en cliquant sur l'emoji 🔔"
+                },
+                {
+                    "name": "Comment changer la date d'un film?",
+                    "value": "La seule solution (pour le moment) est de contacter un modérateur"
+                }
+            ]
+        }
+        client.users.fetch(msg.author)
+            .then(user => {
+                user.send({ embed: message })
+            })
+    }
     if (msg.channel.id === channel && !msg.author.bot) msg.delete();
 })
 
@@ -190,12 +224,13 @@ function addUpvote(movieName, user) {
         var movie = listRequest[i]
         if (listRequest[i].name === movieName && !utils.contains(listRequest[i].vote, user.id)) {
             movie.add(user.id)
-            if (movie.vote.length >= 2) {
-                console.log("PING")
+            if (movie.vote.length >= 5) {
                 const date = utils.trouverDate(listMovie);
                 const newMovie = new Film.Movie(movie.name, date.getDate(), date.getMonth() + 1, undefined)
                 addMovieAdmin(newMovie)
-                listRequest.splice(i, 1)
+                for (j = 0; j < listRequest.length; j++) {
+                    if (listRequest[j].name === movieName) listRequest.splice(j ,1)
+                }
             }
             find = true
         }
@@ -207,7 +242,7 @@ function addUpvote(movieName, user) {
                     "title": "Merci pour ton upvote",
                     "description": "Tu as bien partagé ton avis sur ce film. Avec d'autre personne il pourrait bientôt se retrouver en salle",
                     "color": 388101
-                  }
+                }
                 user.send({ embed: msg })
             })
     } else {
@@ -240,7 +275,7 @@ function addSubscribe(movieName, user) {
                     "title": "Voici ton ticket pour " + movieName,
                     "description": "Tu recevra une notification le soir de la diffusion",
                     "color": 14092265
-                  }
+                }
                 user.send({ embed: msg })
             })
     } else {
