@@ -5,7 +5,7 @@ const utils = require('../utils.js');
 const movieArt = require('movie-art')
 const Calendar = require('node-schedule')
 const client = new Discord.Client();
-const channel = "798582411126112357"
+const channel = "802846541508640809"
 const timeout = { timeout: 30000 };
 
 var listMovie = new Array();
@@ -110,8 +110,12 @@ client.on('messageReactionAdd', (messageReaction, user) => {
 
     if (reaction.name === '🚫' && !user.bot) {
         var find = undefined;
-        for (i = 0; i < listRequest.length; i++) {
-            if (listRequest[i].idMessage === message.id && user.id === listRequest[i].user) find = i;
+        for (i = 0; i < listRequest.length && !find; i++) {
+            if (listRequest[i].idMessage === message.id && user.id === listRequest[i].user) {
+                find = i;
+                console.log("[SFilm] : " + listRequest[i].name + " a été supprimé")
+                listRequest.splice(i, 1)
+            }
         }
         if (find != undefined) {
             client.channels.fetch(channel)
@@ -220,6 +224,7 @@ function addRequest(interaction) {
 
 function addUpvote(movieName, user) {
     var find = false;
+    console.log(listRequest)
     for (i = 0; i < listRequest.length; i++) {
         var movie = listRequest[i]
         if (listRequest[i].name === movieName && !utils.contains(listRequest[i].vote, user.id)) {
