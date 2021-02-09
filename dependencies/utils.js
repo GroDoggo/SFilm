@@ -33,9 +33,29 @@ const trouverDate = (tab) => {
     return date;
 }
 
+const trouverNextMovie = (tab) => {
+    var number = 0
+    var checkMovie = new Array()
+    var find = true
+    while (number < 5 && find) {
+        find = false
+        var minDay = 13*60;
+        for (i = 0; i < tab.length; i++)
+            var day = tab[i].day + tab[i].mounth*60
+            if (day < minDay && contains(checkMovie, tab[i])) {
+                minDay = day
+                checkMovie.push(tab[i])
+                find = false
+            }
+    }
+    console.log(checkMovie)
+    return checkMovie;
+}
+
 
 
 exports.hasRole = hasRole;
 exports.contains = contains;
 exports.supprimeMovie = supprimeMovie;
 exports.trouverDate = trouverDate;
+exports.trouverNextMovie = trouverNextMovie;

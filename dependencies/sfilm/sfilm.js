@@ -5,13 +5,14 @@ const utils = require('../utils.js');
 const movieArt = require('movie-art')
 const Calendar = require('node-schedule')
 const client = new Discord.Client();
-const channel = "802846541508640809"
+const channel = "802664258198175774"
 const timeout = { timeout: 30000 };
 
 var listMovie = new Array();
 var listRequest = new Array();
 
 var j = Calendar.scheduleJob({ hour: 21, minute: 0 }, function () {
+    console.log("il est 21h...")
     checkMovie()
 });
 
@@ -224,10 +225,8 @@ function addRequest(interaction) {
 
 function addUpvote(movieName, user) {
     var find = false;
-    console.log(listRequest)
-    for (i = 0; i < listRequest.length; i++) {
-        var movie = listRequest[i]
-        if (listRequest[i].name === movieName && !utils.contains(listRequest[i].vote, user.id)) {
+    for (movie of listRequest) {
+        if (movie.name === movieName && !utils.contains(movie.vote, user.id)) {
             movie.add(user.id)
             if (movie.vote.length >= 5) {
                 const date = utils.trouverDate(listMovie);
@@ -415,5 +414,26 @@ function reloadData() {
     });
 }
 
+
+function showCalendar(channel) {
+    var nextMovie = utils.trouverNextMovie(listMovie)
+    var msg =
+    {
+        "title": "Les prochains films a venir",
+        "color": null,
+        "fields": [],
+        "footer": {
+            "text": "Utilise /help pour voir les commandes"
+        }
+    }
+    for (i = 0; i < nextMovie.length; i++) {
+        msg["fields"].push(
+            {
+                "name": nextMovie[i],
+                "value": "Prévu pour le " + nextMovie[i].day + "/" + nextMovie[i].mounth
+            }
+        )
+    }
+}
 
 exports.login = login;
