@@ -36,13 +36,15 @@ const trouverDate = (tab) => {
 const trouverNextMovie = (tab) => {
     var number = 0
     var checkMovie = new Array()
+    var date = new Date;
     var find = true
     while (number < 5 && find) {
         find = false
+        var maxDay = date.getDay() + date.getMonth()*60
         var minDay = 13*60;
         for (i = 0; i < tab.length; i++)
             var day = tab[i].day + tab[i].mounth*60
-            if (day < minDay && contains(checkMovie, tab[i])) {
+            if (day < minDay && contains(checkMovie, tab[i]) && day > maxDay) {
                 minDay = day
                 checkMovie.push(tab[i])
                 find = false
