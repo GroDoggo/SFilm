@@ -90,6 +90,8 @@ client.ws.on("INTERACTION_CREATE", async command => {
 
             else if (interaction.command === "upvote") addUpvote(command.data.options[0].options[0].options[0].value, interaction.user)
 
+            else if (interaction.command === "list") showCalendar()
+
         }
     }
 });
@@ -434,6 +436,9 @@ function showCalendar(channel) {
             }
         )
     }
+    client.channels.fetch(channel)
+        .then(channel => channel.send({ embed: msg }))
+
 }
 
 exports.login = login;
