@@ -71,11 +71,10 @@ client.on('message', msg => {
 client.ws.on("INTERACTION_CREATE", async command => {
     const interaction = new Film.Interaction(command)
     if (interaction.data === 'sfilm') {
-        const movie = Film.createMovieInteration(interaction.args);
         if (interaction.rights === "admin" && utils.hasRole(interaction.roles, '798242972457893918')) {
-            if (interaction.command === "add") addMovieAdmin(movie);
+            if (interaction.command === "add") addMovieAdmin(Film.createMovieInteration(interaction.args));
 
-            else if (interaction.command === "remove") removeMovieAdmin(movie)
+            else if (interaction.command === "remove") removeMovieAdmin(Film.createMovieInteration(interaction.args))
 
             else if (interaction.command === "broadcast") addBroadcastAdmin(interaction)
 
@@ -347,6 +346,33 @@ function editAdmin(interaction) {
     addMovieAdmin(movie)
 }
 
+function showCalendar() {
+    var nextMovie = utils.trouverNextMovie(listMovie)
+    var msg =
+    {
+        "title": "Les prochains films a venir",
+        "color": null,
+        "fields": [],
+        "footer": {
+            "text": "Utilise !help pour voir les commandes"
+        }
+    }
+    for (movie of nextMovie) {
+        msg["fields"].push(
+            {
+                "name": movie.name,
+                "value": "Prévu pour le " + movie.day + "/" + movie.mounth
+            }
+        )
+    }
+    client.channels.fetch(channel)
+        .then(channel => {
+            channel.send({ embed: msg })
+        })
+        .catch(console.error);
+
+}
+
 function checkMovie() {
     const day = new Date().getDate()
     const mounth = new Date().getMonth() + 1;
@@ -414,31 +440,6 @@ function reloadData() {
             console.log("[Sfilm] : Data written successfuly");
         }
     });
-}
-
-
-function showCalendar(channel) {
-    var nextMovie = utils.trouverNextMovie(listMovie)
-    var msg =
-    {
-        "title": "Les prochains films a venir",
-        "color": null,
-        "fields": [],
-        "footer": {
-            "text": "Utilise /help pour voir les commandes"
-        }
-    }
-    for (i = 0; i < nextMovie.length; i++) {
-        msg["fields"].push(
-            {
-                "name": nextMovie[i],
-                "value": "Prévu pour le " + nextMovie[i].day + "/" + nextMovie[i].mounth
-            }
-        )
-    }
-    client.channels.fetch(channel)
-        .then(channel => channel.send({ embed: msg }))
-
 }
 
 exports.login = login;

@@ -37,20 +37,21 @@ const trouverNextMovie = (tab) => {
     var number = 0
     var checkMovie = new Array()
     var date = new Date;
-    var find = true
-    while (number < 5 && find) {
-        find = false
-        var maxDay = date.getDay() + date.getMonth()*60
+    var minmovie = undefined
+    do {
+        var maxDay = date.getDate() + (date.getMonth() + 1)*60
         var minDay = 13*60;
-        for (i = 0; i < tab.length; i++)
-            var day = tab[i].day + tab[i].mounth*60
-            if (day < minDay && contains(checkMovie, tab[i]) && day > maxDay) {
+        var minmovie = undefined
+         for (movie of tab) {
+            var day = movie.day + movie.mounth*60
+            if (day < minDay && !contains(checkMovie, movie) && day > maxDay) {
                 minDay = day
-                checkMovie.push(tab[i])
-                find = false
+                minmovie = movie
             }
-    }
-    console.log(checkMovie)
+        }
+        if (minmovie != undefined) checkMovie.push(minmovie)
+        number++
+    } while (number < 5 && minmovie != undefined);
     return checkMovie;
 }
 
