@@ -71,7 +71,7 @@ client.on('message', msg => {
 client.ws.on("INTERACTION_CREATE", async command => {
     const interaction = new Film.Interaction(command)
     if (interaction.data === 'sfilm') {
-        if (interaction.rights === "admin" && utils.hasRole(interaction.roles, '798242972457893918')) {
+        if (interaction.rights === "admin" && utils.hasRole(interaction.roles, '809122689754071080')) {
             if (interaction.command === "add") addMovieAdmin(Film.createMovieInteration(interaction.args));
 
             else if (interaction.command === "remove") removeMovieAdmin(Film.createMovieInteration(interaction.args))
